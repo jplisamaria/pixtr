@@ -1,10 +1,10 @@
 class GalleriesController < ApplicationController
+  before_action :authorize, except: [:show] 
+    # except show because you want other users to see it.
+    # also before_filter
+
   def index
     @galleries = current_user.galleries
-  end
-
-  def show
-    @gallery = Gallery.find(params[:id])
   end
 
   def new
@@ -13,9 +13,13 @@ class GalleriesController < ApplicationController
 
   def create
     gallery = current_user.galleries.create(gallery_params)
-    redirect_to gallery_path(gallery)
+    redirect_to gallery
   end
 
+  def show
+    @gallery = Gallery.find(params[:id])
+  end
+ 
   def edit
     @gallery = current_user.galleries.find(params[:id])
   end
@@ -23,7 +27,7 @@ class GalleriesController < ApplicationController
   def update
     gallery = current_user.galleries.find(params[:id])
     gallery.update(gallery_params)
-    redirect_to gallery_path(gallery)
+    redirect_to gallery
   end
 
   def destroy

@@ -9,5 +9,22 @@
   </nav>
 <% end %>
 
-<img src="<%= @image.url %>">
+<%= image_tag(@image.url, width: 300) %>
 <p><%= @image.description %></p>
+
+<% if signed_in? %>
+  <%= form_for([@image, @comment]) do |form| %>
+    <%= form.text_area :body %>
+    <%= form.submit "Comment" %>
+  <% end %>
+<% else %>
+  <%= link_to "Sign in", sign_in_path %> to comment
+<% end %>
+
+<ul>
+<% @comments.each do |comment| %>
+  <li>
+    <%= comment.body %> <em><small> comment by: 
+    <%= comment.user.email %></small></em></li>
+<% end %>
+</ul>

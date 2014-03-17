@@ -10,6 +10,6 @@
 
 <% @gallery.images.each do |image| %>
   <%= link_to image do %>
-    <img src="<%= image.url %>">
+    <%= image_tag(image.url, width: 300) %>
   <% end %>
 <% end %>
