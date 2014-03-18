@@ -8,8 +8,4 @@
   </nav>
 <% end %>
 
-<% @gallery.images.each do |image| %>
-  <%= link_to image do %>
-    <%= image_tag(image.url, width: 300) %>
-  <% end %>
-<% end %>
+<%= render @images %>

@@ -1,6 +1,8 @@
-<h2>New image<h2>
+<h2>New image</h2>
 
 <%= form_for [@gallery, @image] do |form| %>
+  <%= render 'form_errors', target: @image %>
+
   <div>
     <%= form.text_field :name, placeholder: "Name" %>
   </div>

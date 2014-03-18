@@ -2,9 +2,12 @@ class CommentsController < ApplicationController
 
   def create
     image = Image.find(params[:image_id])
-    image.comments.create(comment_params)
-    #binding.pry
-    redirect_to image
+    comment = image.comments.new(comment_params)
+    if comment.save
+      redirect_to image, notice: "Comment added."
+    else
+      redirect_to image, alert: "Comment cannot be blank."
+    end
   end
 
   def comment_params

@@ -21,10 +21,8 @@
   <%= link_to "Sign in", sign_in_path %> to comment
 <% end %>
 
+<br>
+<em><big> Comments </big></em>
 <ul>
-<% @comments.each do |comment| %>
-  <li>
-    <%= comment.body %> <em><small> comment by: 
-    <%= comment.user.email %></small></em></li>
-<% end %>
+  <%= render @comments %>
 </ul>
