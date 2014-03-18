@@ -21,8 +21,5 @@
   <%= link_to "Sign in", sign_in_path %> to comment
 <% end %>
 
-<br>
-<em><big> Comments </big></em>
-<ul>
-  <%= render @comments %>
-</ul>
+<%= render @comments %>
+<%= paginate @comments %>
