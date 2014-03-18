@@ -13,6 +13,9 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
 end
+group :production do
+  gem 'rails_12factor'
+end
 gem 'clearance'
 group :doc do
   gem 'sdoc', require: false
