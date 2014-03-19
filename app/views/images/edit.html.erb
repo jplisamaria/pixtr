@@ -8,9 +8,15 @@
     <%= form.text_field :description, placeholder: "Description" %>
   </div>
   <div>
-  <div>
     <%= form.text_field :url, placeholder: "URL" %>
+  </div>
+  <div> 
+  <%= form.collection_check_boxes :group_ids, @groups, :id, :name %>
+            <%## @groups means all the groups that we want
+            to display, comes from controller
+            <%## :id and :name  come from @groups %>  
   </div>
   <div>
   <%= form.submit "Update image" %>
+  </div>
 <% end %>
