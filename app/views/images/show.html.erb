@@ -11,6 +11,8 @@
 
 <%= image_tag(@image.url, width: 300) %>
 <p><%= @image.description %></p>
+<p>Added by: <%= link_to @image.user.email, @image.user %></p>
+<p>Added on: <%= @image.created_at.to_date %>
 
 <% if signed_in? %>
   <%= form_for([@image, @comment]) do |form| %>

@@ -11,4 +11,15 @@ Pixtr::Application.routes.draw do
   end
 
   resources :groups, only: [:index, :new, :create, :show]
+
+  
+  resources :users, only: [:show] do
+    member do # /users/:id
+      post "follow" => "following_relationships#create" # /users/:id/follow
+      delete "unfollow" => "following_relationships#destroy"
+    end
+  end
+
+
+
 end
