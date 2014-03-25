@@ -1,5 +1,5 @@
 <div>
-  <%= join_group_activity.email %> 
-  joined
-  <%= link_to join_group_activity.group_name, join_group_activity.group %> group
+  <%= link_to join_group_activity.email, join_group_activity.subject.member %> 
+  joined Group
+  <%= link_to join_group_activity.group_name, join_group_activity.group %>
 </div>

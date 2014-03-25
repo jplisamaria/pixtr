@@ -1,10 +1,10 @@
 class LikeActivity < Activity
-  def image
-    subject.image
+  def likable
+    subject.likable
   end
 
-  def image_name
-    image.name
+  def likable_name
+    likable.name
   end
 
   def email

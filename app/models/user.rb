@@ -24,7 +24,14 @@ class User < ActiveRecord::Base
     through: :follower_relationships  
 
   has_many :likes, dependent: :destroy
-  has_many :liked_images, through: :likes, source: :image
+  has_many :liked_images, 
+    through: :likes, 
+    source: :likable,
+    source_type: 'Image'
+  has_many :liked_galleries, 
+    through: :likes,
+    source: :likable,
+    source_type: 'Gallery'
 
 
   def follow(other_user)
@@ -52,7 +59,7 @@ class User < ActiveRecord::Base
     # groups << group #doesn't return group membership.
     # => [<#Group>, <#Group>, <#Group> ] 
     join_group = group_memberships.create(group: joined_group)
-    notify_followers(group_memberships, "JoinGroupActivity")
+    notify_followers(join_group, "JoinGroupActivity")
   end
 
   def notify_followers(subject, type)
@@ -72,16 +79,16 @@ class User < ActiveRecord::Base
     group_ids.include?(group.id)
   end
 
-  def like(image)
-    like = likes.create(image: image)
+  def like(target)
+    like = likes.create(likable: target)
     notify_followers(like, "LikeActivity")
   end
 
-  def likes?(image)
-    liked_image_ids.include?(image.id)
+  def likes?(target)
+    likes.exists?(likable: target)
   end
 
-  def unlike(image)
-    liked_images.destroy(image)
+  def unlike(target)
+    likes.find_by(likable: target).destroy
   end
 end

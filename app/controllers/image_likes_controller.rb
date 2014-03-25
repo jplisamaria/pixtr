@@ -1,4 +1,4 @@
-class LikeImagesController < ApplicationController
+class ImageLikesController < ApplicationController
 
   def create
     image = find_image

@@ -1,5 +1,8 @@
 <div>
-  <%= like_activity.email %> liked
-  <%= link_to like_activity.image_name, like_activity.image %>
+  <%= link_to like_activity.email, 
+    like_activity.subject.user %> 
+  liked
+  <%= like_activity.subject.likable_type %>
+  <%= link_to like_activity.likable_name, like_activity.likable %> 
 
 </div>

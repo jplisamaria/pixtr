@@ -1,0 +1,2 @@
+class ImageLike < Like
+end

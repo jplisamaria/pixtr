@@ -1,0 +1,2 @@
+class GalleryLike < Like
+end
