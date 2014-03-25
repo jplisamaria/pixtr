@@ -6,6 +6,8 @@ class FollowingRelationship < ActiveRecord::Base
 
   validate :cannot_follow_yourself   ##validate for custonm methods, but validates for predefined methods
 
+  has_many :activities, as: :subject, dependent: :destroy
+
   private
 
   def cannot_follow_yourself

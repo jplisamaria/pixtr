@@ -1,0 +1,3 @@
+class CommentActivity < Activity
+
+end
