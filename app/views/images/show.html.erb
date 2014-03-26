@@ -10,12 +10,16 @@
 <% end %>
 
 
-<% if current_user.likes? @image %>
-  <%= button_to "Unlike", unlike_image_path(@image), 
-    method: :delete %>
-<% else %>
-  <%= button_to "Like image", like_image_path(@image) %>
-<% end %>
+<div id='like_button_form'>
+  <% if signed_in? %>
+    <% if current_user.likes? @image %>
+      <%= button_to "Unlike", unlike_image_path(@image), remote: true, id: 'unlike_button', 
+        method: :delete %>
+    <% else %>
+      <%= button_to "Like image", like_image_path(@image), remote: true, id: 'like_button' %>
+    <% end %>
+  <% end %>
+</div>
 
 
 
@@ -27,7 +31,7 @@
 <p><%= @image.description %></p>
 <p>Added by: <%= link_to @image.user.email, @image.user %></p>
 <p>Added on: <%= @image.created_at.to_date %>
-<div>
+<div id="like_count">
   <%= pluralize(@image.likes.count, "like") %>
 </div>
 

@@ -1,5 +1,4 @@
 class Like < ActiveRecord::Base
-  belongs_to :likable
   belongs_to :user
   belongs_to :likable, polymorphic: true
 

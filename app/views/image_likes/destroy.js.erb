@@ -1,0 +1,2 @@
+$("#like_button_form").html("<%=j button_to "Like image", like_image_path(@image), remote: true, id: 'like_button' %>");
+$("#like_count").html("<%=j pluralize(@image.likes.count, "like") %>");
