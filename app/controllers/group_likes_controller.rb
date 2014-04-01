@@ -4,12 +4,14 @@ class GroupLikesController < ApplicationController
     @group = find_group
     current_user.like @group
 #    redirect_to group
+    render :change
   end
 
   def destroy
     @group = find_group
     current_user.unlike @group
 #    redirect_to group
+    render :change
   end  
 
   private

@@ -1,0 +1,3 @@
+template = "<%=j render "images/like_button_form", image: @image %>"
+$("#like-button-form").html(template);
+$("#like-count").html("<%=j pluralize(@image.likes.count, "like") %>");

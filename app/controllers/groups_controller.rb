@@ -22,7 +22,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    @images = @group.images
+    @images = @group.images.includes(gallery: [:user])
   end
 
   private

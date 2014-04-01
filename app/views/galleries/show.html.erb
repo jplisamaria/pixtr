@@ -1,13 +1,7 @@
 <h2><%= @gallery.name %></h2>
 
-<div id="like_button_form">
-  <% if signed_in? %>
-    <% if current_user.likes? @gallery %>
-      <%= button_to "Unlike", unlike_gallery_path(@gallery), method: :delete, remote: true %>  
-    <% else %>
-      <%= button_to "Like gallery", like_gallery_path(@gallery), remote: true %>
-    <%end%>
-  <% end %>
+<div id="like-button-form">
+  <%= render "like_button_form", gallery: @gallery %>
 </div>
 
 

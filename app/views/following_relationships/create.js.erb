@@ -1,0 +1,2 @@
+template = "<%=j button_to("Unfollow #{@user.email}", unfollow_user_path(@user), method: :delete, remote: true) %>"
+$("#follow-button-form").html(template);

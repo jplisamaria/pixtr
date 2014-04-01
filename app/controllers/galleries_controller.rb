@@ -14,7 +14,7 @@ class GalleriesController < ApplicationController
   def create
     @gallery = current_user.galleries.new(gallery_params)
     if @gallery.save
-      current_user.notify_followers(@gallery, "CreateGalleryActivity")
+      current_user.notify_followers(@gallery, @gallery, "CreateGalleryActivity")
       redirect_to @gallery
     else
       render :new #this requires instance variables
@@ -23,7 +23,7 @@ class GalleriesController < ApplicationController
 
   def show
     @gallery = Gallery.find(params[:id])
-    @images = @gallery.images
+    @images = @gallery.images.includes(gallery: [:user])
   end
  
   def edit

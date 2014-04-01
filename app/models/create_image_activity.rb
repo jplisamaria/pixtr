@@ -1,4 +1,4 @@
-class CommentActivity < Activity
+class CreateImageActivity < Activity
   def image
     target
   end
@@ -10,5 +10,4 @@ class CommentActivity < Activity
   def image_name
     target.name
   end
-
 end

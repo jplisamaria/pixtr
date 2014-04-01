@@ -38,13 +38,7 @@ class User < ActiveRecord::Base
 #    followed_users << other_user
     follow_someone = followed_user_relationships.create(
       followed_user: other_user)
-
-    followers.each do |follower|
-      follower.activities.create(
-        subject: follow_someone,
-        type: 'FollowSomeoneActivity'       
-      )
-    end
+    notify_followers(follow_someone, other_user, "FollowSomeoneActivity")
   end
 
   def unfollow(other_user)
@@ -59,17 +53,20 @@ class User < ActiveRecord::Base
     # groups << group #doesn't return group membership.
     # => [<#Group>, <#Group>, <#Group> ] 
     join_group = group_memberships.create(group: joined_group)
-    notify_followers(join_group, "JoinGroupActivity")
+    notify_followers(join_group, joined_group, "JoinGroupActivity")
   end
 
-  def notify_followers(subject, type)
+  def notify_followers(subject, target, type)
     followers.each do |follower|
       follower.activities.create(
+        actor: self,
         subject: subject,
-        type: type
+        type: type,
+        target: target
       )
     end
   end
+  handle_asynchronously :notify_followers
 
   def leave(group)
     groups.destroy(group)
@@ -81,7 +78,7 @@ class User < ActiveRecord::Base
 
   def like(target)
     like = likes.create(likable: target)
-    notify_followers(like, "LikeActivity")
+    notify_followers(like, target, "LikeActivity")
   end
 
   def likes?(target)

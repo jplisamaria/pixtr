@@ -1,0 +1,2 @@
+template = "<%=j button_to("Follow #{@user.email}", follow_user_path(@user), remote: true) %>"
+$("#follow-button-form").html(template);

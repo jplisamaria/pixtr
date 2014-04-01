@@ -1,9 +1,9 @@
 <div>
-<%= link_to comment_activity.subject.user.email, 
-  comment_activity.subject.user %> 
-commented on  
-<%= link_to comment_activity.subject.image.user.email, 
-  comment_activity.subject.image.user %>'s
-Image
-'<%= link_to comment_activity.subject.image.name, comment_activity.subject.image %>'
+  <%= link_to comment_activity.email, 
+    comment_activity.actor %> 
+  commented on  
+  <%= link_to comment_activity.image.user.email, 
+    comment_activity.image.user %>'s
+  Image
+  <%= link_to comment_activity.image_name, comment_activity.image %>
 </div>

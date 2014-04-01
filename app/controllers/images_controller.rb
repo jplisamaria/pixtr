@@ -8,6 +8,7 @@ class ImagesController < ApplicationController
     @gallery = current_user.galleries.find(params[:gallery_id])
     @image = @gallery.images.new(image_params)
     if @image.save
+      current_user.notify_followers(@image, @image, "CreateImageActivity")
       redirect_to @gallery
     else
       render :new ##renders a new view.  Change variables to instance variables.
@@ -18,13 +19,15 @@ class ImagesController < ApplicationController
   def show
     @image = Image.find(params[:id])
     @comment = Comment.new
-    @comments = @image.comments.recent.page(params[:page]).per(2) #class method
+    @comments = @image.comments.recent.page(params[:page]).
+      per(2).includes(:user, :image) #class method
 
   end
 
   def edit
     @image = current_user.images.find(params[:id])
-    @groups = current_user.groups #grabs list of groups for use in the checkboxes implementation
+    @groups = current_user.groups #grabs list of groups for use in 
+                                  #the checkboxes implementation
   end
 
   def update
