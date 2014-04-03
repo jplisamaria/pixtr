@@ -1,5 +1,17 @@
 <%= link_to 'Add a group', new_group_path %>
 
+
+ <%= form_tag groups_path, method: 'get' do  %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+
+
+
+
 <ul>
 <% @groups.each do |group| %>
   <li><%= link_to group.name, group %></li>

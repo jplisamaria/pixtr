@@ -14,7 +14,9 @@
   <%= render "like_button_form", image: @image %>
 </div>
 
-
+<p><strong>Tags: </strong>
+    <%= raw @image.tag_list.map { |tag| link_to tag, tag_path(tag)} .join(' ') %>
+</p>
 <%= image_tag(@image.url, width: 300) %>
 <p><%= @image.description %></p>
 <p>Added by: <%= link_to @image.user.email, @image.user %></p>

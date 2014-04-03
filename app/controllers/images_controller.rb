@@ -1,4 +1,13 @@
 class ImagesController < ApplicationController
+  def index
+    if params[:tag]
+      @images = Image.tagged_with(params[:tag]).includes(gallery: [:user])
+      @tag = params[:tag]
+    else
+      @images = Image.all
+    end
+  end
+
   def new
     @gallery = current_user.galleries.find(params[:gallery_id])
     @image = Image.new
@@ -40,6 +49,7 @@ class ImagesController < ApplicationController
     end
   end
 
+
   def destroy
     image = current_user.images.find(params[:id])
     image.destroy
@@ -53,6 +63,7 @@ class ImagesController < ApplicationController
       :name,
       :url,
       :description,
+      :tag_list,
       group_ids: [] #special syntax for accepting an array
     )
   end

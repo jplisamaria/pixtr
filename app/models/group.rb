@@ -9,4 +9,11 @@ class Group < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def self.search(search = nil)
+    if search
+      where('name LIKE ?', "%#{search}%")
+    else
+      all
+    end
+  end
 end

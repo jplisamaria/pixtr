@@ -16,6 +16,13 @@
             to display, comes from controller
             <%## :id and :name  come from @groups %>  
   </div>
+
+  
+  <div id="tag-field">
+    <%= form.label :tag_list, "Tags (seperated by commas)" %> <br>
+    <%= form.text_field :tag_list %>
+  </div>
+
   <div>
   <%= form.submit "Update image" %>
   </div>

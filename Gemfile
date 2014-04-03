@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'dotenv-rails', :groups => [:development, :test]
 gem 'rails', '4.0.3'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.0'
@@ -11,6 +12,12 @@ gem 'kaminari'
 gem 'jbuilder', '~> 1.2'
 gem 'delayed_job_active_record'
 gem 'daemons'
+gem 'acts-as-taggable-on'
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+
+#gem 'protected_attributes'
+
+
 
 group :development do
   gem 'quiet_assets'

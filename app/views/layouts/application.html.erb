@@ -1,23 +1,28 @@
 <!DOCTYPE html>
+
 <html>
 <head>
   <title>Pixtr</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "application", 
+    media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "
+    data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
 
-<h1><%= link_to 'Pixtr', root_path %></h1>
-<% if signed_in? %>
-<nav>
-<ul>
-  <li> <%= link_to 'My Galleries', galleries_path %></li>
-  <li> <%= link_to 'My Groups', groups_path %></li>
+  <h1><%= link_to 'Pixtr', root_path %></h1>
 
-</ul>
-</nav>
-<%end%>
+  <% if signed_in? %>
+    <nav>
+      <ul>
+        <li> <%= link_to 'My Galleries', galleries_path %></li>
+        <li> <%= link_to 'My Groups', groups_path %></li>
+      </ul>
+    </nav>
+  <%end%>
+
 
   <% if signed_in? %>
     Signed in as: <%= current_user.email %>
@@ -29,6 +34,14 @@
   <div id="flash">
     <% flash.each do |key, value| %>
       <div class="flash <%= key %>"><%= value %></div>
+    <% end %>
+  </div>
+
+
+  <div><span><strong>Search: </strong></span>
+    <%=form_for(:search, url: search_path, method: :get) do |form| %>
+      <%= form.text_field :query, placeholder: "Search here" %>
+      <%= form.submit "Search" %>
     <% end %>
   </div>
 

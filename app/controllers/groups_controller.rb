@@ -3,7 +3,11 @@ class GroupsController < ApplicationController
   before_action :authorize, except: [:show]
 
   def index
-    @groups = current_user.groups
+    if params.has_key?(:search)
+      @groups = Group.search(params[:search])
+    else
+      @groups = current_user.groups
+    end
   end
 
   def new
