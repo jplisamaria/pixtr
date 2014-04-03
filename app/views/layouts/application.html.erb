@@ -15,6 +15,12 @@
   <h1><%= link_to 'Pixtr', root_path %></h1>
 
   <% if signed_in? %>
+    <% if current_user.premium? %>
+      <h1>PREMIUM MEMBERSHIP</h1>
+    <% else %>
+      <%= button_to "UPGRADE YOUR ACCOUNT", new_charge_path, method: :get %>
+    <% end %>
+
     <nav>
       <ul>
         <li> <%= link_to 'My Galleries', galleries_path %></li>

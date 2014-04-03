@@ -2,7 +2,8 @@ Pixtr::Application.routes.draw do
   get "/galleries/random" => "random_galleries#show"
 
   resource :search, only: :show
-  
+  resources :charges, only: [:new, :create]
+
   root "homes#show"
   resource :dashboard, only: [:show]
 

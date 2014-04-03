@@ -88,4 +88,8 @@ class User < ActiveRecord::Base
   def unlike(target)
     likes.find_by(likable: target).destroy
   end
+
+  def premium?
+    stripe_id.length > 0
+  end  
 end
