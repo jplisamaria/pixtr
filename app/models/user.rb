@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
   has_many :galleries, dependent: :destroy
   has_many :images, through: :galleries
 
-  has_many :group_memberships, dependent: :destroy,
+  has_many :group_memberships, 
+    dependent: :destroy,
     foreign_key: :member_id #use foreign_key if id is not class name
   has_many :groups, 
     through: :group_memberships
@@ -18,16 +19,18 @@ class User < ActiveRecord::Base
     through: :followed_user_relationships
 
   has_many :follower_relationships, 
-    foreign_key: :followed_user_id, dependent: :destroy,
+    foreign_key: :followed_user_id, 
+    dependent: :destroy,
     class_name: "FollowingRelationship"  
   has_many :followers, 
     through: :follower_relationships  
 
-  has_many :likes, dependent: :destroy
+  has_many :likes, dependent: :destroy, inverse_of: :user
   has_many :liked_images, 
     through: :likes, 
     source: :likable,
     source_type: 'Image'
+
   has_many :liked_galleries, 
     through: :likes,
     source: :likable,
@@ -56,6 +59,10 @@ class User < ActiveRecord::Base
     notify_followers(join_group, joined_group, "JoinGroupActivity")
   end
 
+  def leave(group)
+    groups.destroy(group)
+  end
+
   def notify_followers(subject, target, type)
     followers.each do |follower|
       follower.activities.create(
@@ -67,10 +74,6 @@ class User < ActiveRecord::Base
     end
   end
   handle_asynchronously :notify_followers
-
-  def leave(group)
-    groups.destroy(group)
-  end
 
   def member?(group)
     group_ids.include?(group.id)
@@ -90,6 +93,6 @@ class User < ActiveRecord::Base
   end
 
   def premium?
-    stripe_id.length > 0
+    stripe_id.present?
   end  
 end

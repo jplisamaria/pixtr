@@ -13,14 +13,15 @@
 <body>
 
   <h1><%= link_to 'Pixtr', root_path %></h1>
-
   <% if signed_in? %>
     <% if current_user.premium? %>
       <h1>PREMIUM MEMBERSHIP</h1>
     <% else %>
       <%= button_to "UPGRADE YOUR ACCOUNT", new_charge_path, method: :get %>
     <% end %>
+  <% end %>
 
+  <% if signed_in? %>
     <nav>
       <ul>
         <li> <%= link_to 'My Galleries', galleries_path %></li>
@@ -31,7 +32,7 @@
 
 
   <% if signed_in? %>
-    Signed in as: <%= current_user.email %>
+    Signed in as: <%= link_to current_user.email, account_path %>
       <%= link_to 'Sign out', sign_out_path, method: :delete %>
   <% else %>
     <%= link_to 'Sign in', sign_in_path %>

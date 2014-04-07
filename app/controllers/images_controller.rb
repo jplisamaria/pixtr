@@ -29,7 +29,7 @@ class ImagesController < ApplicationController
     @image = Image.find(params[:id])
     @comment = Comment.new
     @comments = @image.comments.recent.page(params[:page]).
-      per(2).includes(:user, :image) #class method
+      per(10).includes(:user, :image) #class method
 
   end
 

@@ -18,9 +18,9 @@ class Image < ActiveRecord::Base
     gallery.user
   end
 
-  def self.search(search_params)
-    query = search_params[:query]
-    image_ids = self.tagged_with(query).pluck(:id)
-    where("name ILIKE :query OR description ILIKE :query OR id IN (:image_ids)", query: "%#{query}%", image_ids: image_ids)
-  end
+  # def self.search(search_params)
+  #   query = search_params[:query]
+  #   image_ids = self.tagged_with(query).pluck(:id)
+  #   where("name ILIKE :query OR description ILIKE :query OR id IN (:image_ids)", query: "%#{query}%", image_ids: image_ids)
+  # end
 end

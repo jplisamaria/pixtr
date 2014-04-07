@@ -1,2 +1,0 @@
-$("#like_button_form").html("<%=j button_to "Unlike", unlike_image_path(@image),id: 'unlike_button', remote: true, method: :delete %>");
-$("#like_count").html("<%=j pluralize(@image.likes.count, "like") %>");
