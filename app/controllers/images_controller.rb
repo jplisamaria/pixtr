@@ -17,11 +17,10 @@ class ImagesController < ApplicationController
     @gallery = current_user.galleries.find(params[:gallery_id])
     @image = @gallery.images.new(image_params)
     if @image.save
-      current_user.notify_followers(@image, @image, "CreateImageActivity")
+      notify_followers(@image, @image, "CreateImageActivity")
       redirect_to @gallery
     else
-      render :new ##renders a new view.  Change variables to instance variables.
-                  ## is ok the first time because new sets @gallery and @image.
+      render :new 
     end
   end
 
@@ -48,7 +47,6 @@ class ImagesController < ApplicationController
       render :edit
     end
   end
-
 
   def destroy
     image = current_user.images.find(params[:id])

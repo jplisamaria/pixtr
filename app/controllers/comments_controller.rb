@@ -4,11 +4,7 @@ class CommentsController < ApplicationController
     image = Image.find(params[:image_id])
     @comment = image.comments.new(comment_params)#.include(:user)
     if @comment.save
-    
-      current_user.notify_followers(@comment, image, "CommentActivity")
-#      redirect_to image, notice: "Comment added."
-    else
-#      redirect_to image, alert: "Comment cannot be blank."
+      notify_followers(@comment, image, "CommentActivity")
     end
   end
 

@@ -5,7 +5,7 @@ class ImageSearcher
     @search_params = search_params
   end
 
-  def search_for_tags #call it 'images'
+  def get_images #call it 'images'
     Image.where("name ILIKE :query OR description ILIKE :query OR id IN (:image_ids)", query: "%#{query}%", image_ids: image_ids_for_tags)
   end
 

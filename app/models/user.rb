@@ -34,14 +34,12 @@ class User < ActiveRecord::Base
   has_many :liked_galleries, 
     through: :likes,
     source: :likable,
-    source_type: 'Gallery'
+    source_type:' Gallery'
 
 
   def follow(other_user)
-#    followed_users << other_user
     follow_someone = followed_user_relationships.create(
       followed_user: other_user)
-    notify_followers(follow_someone, other_user, "FollowSomeoneActivity")
   end
 
   def unfollow(other_user)
@@ -53,27 +51,12 @@ class User < ActiveRecord::Base
   end
 
   def join(joined_group)
-    # groups << group #doesn't return group membership.
-    # => [<#Group>, <#Group>, <#Group> ] 
     join_group = group_memberships.create(group: joined_group)
-    notify_followers(join_group, joined_group, "JoinGroupActivity")
   end
 
   def leave(group)
     groups.destroy(group)
   end
-
-  def notify_followers(subject, target, type)
-    followers.each do |follower|
-      follower.activities.create(
-        actor: self,
-        subject: subject,
-        type: type,
-        target: target
-      )
-    end
-  end
-  handle_asynchronously :notify_followers
 
   def member?(group)
     group_ids.include?(group.id)
@@ -81,7 +64,6 @@ class User < ActiveRecord::Base
 
   def like(target)
     like = likes.create(likable: target)
-    notify_followers(like, target, "LikeActivity")
   end
 
   def likes?(target)

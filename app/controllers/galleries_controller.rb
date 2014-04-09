@@ -1,4 +1,5 @@
 class GalleriesController < ApplicationController
+  respond_to :html
   before_action :authorize, except: [:show] 
     # except show because you want other users to see it.
     # also before_filter
@@ -14,7 +15,7 @@ class GalleriesController < ApplicationController
   def create
     @gallery = current_user.galleries.new(gallery_params)
     if @gallery.save
-      current_user.notify_followers(@gallery, @gallery, "CreateGalleryActivity")
+      notify_followers(@gallery, @gallery, "CreateGalleryActivity")
       redirect_to @gallery
     else
       render :new #this requires instance variables
@@ -27,21 +28,17 @@ class GalleriesController < ApplicationController
   end
  
   def edit
-    @gallery = current_user.galleries.find(params[:id])
+    @gallery = find_gallery
   end
 
   def update
-    @gallery = current_user.galleries.find(params[:id])
-    if @gallery.update(gallery_params)
-      #binding.pry
-      redirect_to @gallery
-    else
-      render :edit
-    end
+    @gallery = find_gallery
+    @gallery.update(gallery_params)
+    respond_with @gallery
   end
 
   def destroy
-    gallery = current_user.galleries.find(params[:id])
+    gallery = find_gallery
     gallery.destroy
     redirect_to root_path
   end
@@ -50,5 +47,9 @@ class GalleriesController < ApplicationController
 
   def gallery_params
     params.require(:gallery).permit(:name)
+  end
+
+  def find_gallery
+    current_user.galleries.find(params[:id])
   end
 end

@@ -22,7 +22,7 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 group :development do
   gem 'quiet_assets'
   gem 'pry-rails'
-  gem 'bullet'
+#  gem 'bullet'
 #  gem 'better_errors'
 #  gem 'binding_of_caller'
 end
